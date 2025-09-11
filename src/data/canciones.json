@@ -2,7 +2,8 @@
     {
       "titulo": "Tarde",
       "artista": "3 AM, Babi",
-      "duracion": "3:26"
+      "duracion": "3:26",
+      "imagen":"/src/assets/portadas/Tarde.jpg"
     },
     {
       "titulo": "Black roses",
