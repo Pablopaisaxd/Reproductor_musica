@@ -1,11 +1,26 @@
-import React, { useState } from 'react'
+import React, { createContext, useState } from 'react'
 import canciones from  "/src/data/canciones.json"
 import imgdefault from "/src/assets/portadas/unown.jpg"
+import "../styles/file.css"
 
-export const File = () => {
-  const [files, setFiles] = useState([])
+
+export const File = ({setFiles, mostrarPlaylist}) => {
   const [error, setError] = useState("")
 
+  const obtenerDuracion = (file) => {
+  return new Promise((resolve, reject) => {
+    const audio = document.createElement("audio")
+    audio.src = URL.createObjectURL(file)
+
+    audio.addEventListener("loadedmetadata", () => {
+      resolve(audio.duration) // duración en segundos
+    })
+
+    audio.addEventListener("error", (e) => {
+      reject("No se pudo leer la duración del archivo")
+    })
+  })
+}
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files)
 
@@ -25,12 +40,18 @@ export const File = () => {
         );
 
         return {
+          id: Date.now()+Math.random(),
           archivo: file.name,
+          archivoReal: file,
           titulo: nombreSinExtension,
           artista: cancionEncontrada ? cancionEncontrada.artista : "Desconocido",
-          duracion: cancionEncontrada ? cancionEncontrada.duracion : "N/A",
+          duracion: obtenerDuracion(file).then((duracionSegundos) => {
+            const minutos = Math.floor(duracionSegundos / 60);
+            const segundos = Math.floor(duracionSegundos % 60);
+            return `${minutos}:${segundos < 10 ? '0' : ''}${segundos}`;
+          }),
           peso: (file.size / (1024 * 1024)).toFixed(2) + " MB",
-          imagen: cancionEncontrada ? cancionEncontrada.imagen : imgdefault
+          imagen: cancionEncontrada ? cancionEncontrada.imagen : imgdefault,
         };
       });
 
@@ -41,35 +62,22 @@ export const File = () => {
     }
   }
 
-  const artistaCancion = canciones.map(cancion => {
-    console.log(cancion)
-  })
+
+
 
   
-  console.log(files)
   return (
-    <div>
-      <input
+    <div >
+      
+       <input
         type="file"
         multiple
         onChange={handleFileChange}
-        accept=".mp3,.wav,.ogg,.m4a" 
+        accept=".mp3,.wav,.ogg,.m4a"
+        className={mostrarPlaylist ? 'mostrar' : 'ocultar' }
       />
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      {files.length > 0 && (
-        <ul>
-          {files.map((file, index) => (
-            <li key={index}>
-              <p>Titulo: {file.titulo}</p>
-              <p>Artista: {file.artista}</p>
-              <p>Peso: {file.peso}</p>
-              <img src={file.imagen} alt="" />
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   )
 }

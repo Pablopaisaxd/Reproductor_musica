@@ -8,26 +8,31 @@
     {
       "titulo": "Black roses",
       "artista": "Doble 0",
-      "duracion": "3:11"
+      "duracion": "3:11",
+      "imagen":"/src/assets/portadas/Black roses.jpg"
     },
     {
       "titulo": "Perfume",
       "artista": "Khan",
-      "duracion": "3:16"
+      "duracion": "3:16",
+      "imagen":"/src/assets/portadas/khan - -Perfume.jpg"
     },
     {
       "titulo": "Loca remix",
       "artista": "Khea, Duki, Bad Bunny, Cazzu",
-      "duracion": "5:31"
+      "duracion": "5:31",
+      "imagen":"/src/assets/portadas/Loca.jpg"
     },
     {
-      "titulo": "Tu carcel",
+      "titulo": "Tu cárcel",
       "artista": "Los bukis",
-      "duracion": "3:29"
+      "duracion": "3:29",
+      "imagen":"/src/assets/portadas/Tu carcel.jpg"
     },
     {
       "titulo": "Tu falta de querer",
       "artista": "Mon laferte",
-      "duracion": "4:39"
+      "duracion": "4:39",
+      "imagen":"/src/assets/portadas/Tu falta de querer.jpg"
     }
   ]
