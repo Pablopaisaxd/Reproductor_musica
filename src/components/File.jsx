@@ -7,6 +7,7 @@ import "../styles/file.css"
 export const File = ({setFiles, mostrarPlaylist}) => {
   const [error, setError] = useState("")
 
+  
   const obtenerDuracion = (file) => {
   return new Promise((resolve, reject) => {
     const audio = document.createElement("audio")
@@ -21,46 +22,49 @@ export const File = ({setFiles, mostrarPlaylist}) => {
     })
   })
 }
-  const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files)
+ const handleFileChange = async (e) => {
+  const selectedFiles = Array.from(e.target.files);
 
-    const allowedTypes = ["audio/mpeg", "audio/wav", "audio/ogg", "audio/mp4"]
-    const validFiles = selectedFiles.filter(file =>
-      allowedTypes.includes(file.type)
-    )
+  const allowedTypes = ["audio/mpeg", "audio/wav", "audio/ogg", "audio/mp4"];
+  const validFiles = selectedFiles.filter(file =>
+    allowedTypes.includes(file.type)
+  );
 
-    if (validFiles.length > 0) {
-      setFiles(validFiles)
-      setError("")
+  if (validFiles.length > 0) {
+    setError("");
 
-      const coincidencias = validFiles.map((file) => {
+    const nuevasCanciones = await Promise.all(
+      validFiles.map(async (file) => {
         const nombreSinExtension = file.name.replace(/\.[^/.]+$/, "");
         const cancionEncontrada = canciones.find(
           (c) => c.titulo.toLowerCase() === nombreSinExtension.toLowerCase()
         );
 
+        const duracionSegundos = await obtenerDuracion(file);
+        const minutos = Math.floor(duracionSegundos / 60);
+        const segundos = Math.floor(duracionSegundos % 60);
+        const duracionFormateada = `${minutos}:${segundos < 10 ? "0" : ""}${segundos}`;
+
         return {
-          id: Date.now()+Math.random(),
+          id: Date.now() + Math.random(),
           archivo: file.name,
           archivoReal: file,
           titulo: nombreSinExtension,
           artista: cancionEncontrada ? cancionEncontrada.artista : "Desconocido",
-          duracion: obtenerDuracion(file).then((duracionSegundos) => {
-            const minutos = Math.floor(duracionSegundos / 60);
-            const segundos = Math.floor(duracionSegundos % 60);
-            return `${minutos}:${segundos < 10 ? '0' : ''}${segundos}`;
-          }),
+          duracion: duracionFormateada,
           peso: (file.size / (1024 * 1024)).toFixed(2) + " MB",
           imagen: cancionEncontrada ? cancionEncontrada.imagen : imgdefault,
         };
-      });
+      })
+    );
 
-      setFiles(coincidencias);
-    } else {
-      setFiles([])
-      setError("Solo se permiten archivos de música (.mp3, .wav, .ogg, .m4a)")
-    }
+
+    setFiles((prev) => [...prev, ...nuevasCanciones]);
+  } else {
+    setError("Solo se permiten archivos de música (.mp3, .wav, .ogg, .m4a)");
   }
+};
+
 
 
 

@@ -1,0 +1,58 @@
+.next-button{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.next-button:hover{
+    transform: scale(1.1);
+}
+
+.previous-button{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    transform: rotate(180deg);
+}
+.previous-button:hover{
+    transform: scale(1.1) rotate(180deg);
+}
+
+.shuffle-button{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.shuffle-button:hover{
+    transform: scale(1.1);
+}
+
+.active{
+    color: aquamarine;
+}
+
+.repeat-button {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  transition: color 0.3s ease;
+  color: #666;
+}
+
+.repeat-button:hover {
+   transform: scale(1.1);
+}
+
+.repeat-button.off {
+  color: #3b3b3b; 
+}
+
+.repeat-button.one {
+  color: #1db954; 
+}
+
+.repeat-button.all {
+  color: #1db954; 
+}

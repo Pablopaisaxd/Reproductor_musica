@@ -60,7 +60,7 @@
   border-radius: 8px;
   margin-bottom: 10px;
   width: 100px;
-  height: auto;
+  height: 100px;
   object-fit: cover;
   background: #eaeaea;
 }
@@ -84,4 +84,49 @@
   color: #888;
   font-size: 0.95rem;
   text-align: center;
+}
+
+.trash-icon{
+  width: 30px;
+  height: 30px;
+  margin-top: 8px;
+  cursor: pointer;
+  fill: #ff4d4d;
+  transition: transform 0.2s, fill 0.2s;
+  position: relative;
+  left: 80px;
+  bottom: 120px;
+}
+
+.clean-all-playlist{
+  width: 100%;
+  padding: 10px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.clean-all-playlist:hover{
+  background-color: #e04343;
+}
+
+.sort-button{
+  width: 100%;
+  padding: 10px;
+  background-color: #4f8cff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 50px;
+  transition: background-color 0.3s ease;
+}
+.sort-button:hover{
+  background-color: #3b6fd1;
 }
